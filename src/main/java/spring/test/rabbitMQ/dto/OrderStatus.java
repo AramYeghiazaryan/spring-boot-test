@@ -3,6 +3,7 @@ package spring.test.rabbitMQ.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import spring.test.rabbitMQ.utils.Statuses;
 
 @Data
 @NoArgsConstructor
@@ -10,6 +11,6 @@ import lombok.NoArgsConstructor;
 public class OrderStatus {
 
     private OrderDto order;
-    private String status;  //progress, completed;
+    private Statuses status;  //progress, completed;
     private String message;
 }

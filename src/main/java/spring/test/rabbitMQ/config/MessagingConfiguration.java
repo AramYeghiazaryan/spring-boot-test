@@ -8,17 +8,19 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import static spring.test.rabbitMQ.utils.Constants.*;
+
 @Configuration
 public class MessagingConfiguration {
 
     @Bean
     public Queue queue() {
-        return new Queue("my_first_queue");
+        return new Queue(QUEUE);
     }
 
     @Bean
     public TopicExchange exchange() {
-        return new TopicExchange("my_first_exchange");
+        return new TopicExchange(EXCHANGE);
     }
 
     @Bean
@@ -26,18 +28,18 @@ public class MessagingConfiguration {
         return BindingBuilder
                 .bind(queue)
                 .to(exchange)
-                .with("my_key");
+                .with(BINDING_KEY);
     }
 
     @Bean
-    public AmqpTemplate template(ConnectionFactory connectionFactory){
+    public AmqpTemplate template(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(converter());
         return rabbitTemplate;
     }
 
     @Bean
-    public MessageConverter converter(){
+    public MessageConverter converter() {
         return new Jackson2JsonMessageConverter();
     }
 }
